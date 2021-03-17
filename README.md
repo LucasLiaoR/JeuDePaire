@@ -1,5 +1,5 @@
 # JeuDePaire
-Petit jeu de carte ou il faut joindre les cartes identiques
+Petit jeu de cartes dans lequel il faut joindre les cartes identiques en mémorisant leur emplacement
 
 
 
