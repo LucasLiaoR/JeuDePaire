@@ -17,6 +17,8 @@ namespace Exam
             InitializeComponent();
         }
 
+        static Boolean carteDecouverte = false;
+
         public void creer_button(int x, int y, String number)
         {
             Label btn = new Label();
@@ -25,7 +27,8 @@ namespace Exam
 
             btn.Left = x;
             btn.Top = y;
-            btn.Text = number;
+            btn.Tag = number;
+            btn.Text = "?";
             btn.Size = new Size(34, 34);
             btn.AllowDrop = true;
             btn.BackColor = Color.White;
@@ -46,7 +49,7 @@ namespace Exam
         {
             Label butn = (Label)sender;
 
-            value_drag = butn.Text;
+            value_drag = (String)butn.Tag;
             index_btn_depart = panel1.Controls.IndexOf(butn);
             butn.DoDragDrop("bidon", DragDropEffects.All);
         }
@@ -60,7 +63,7 @@ namespace Exam
         {
             Label btn = (Label)sender;
 
-            if (value_drag == btn.Text && index_btn_depart != panel1.Controls.IndexOf(btn))
+            if (value_drag == (String)btn.Tag && index_btn_depart != panel1.Controls.IndexOf(btn))
             {
                 panel1.Controls.RemoveAt(index_btn_depart);
                 panel1.Controls.Remove(btn);
@@ -71,9 +74,22 @@ namespace Exam
                     button1.Enabled = true;
                 }
             }
+            else if (index_btn_depart == panel1.Controls.IndexOf(btn))
+            {
+                if (!carteDecouverte)
+                {
+                    btn.Text = (String)btn.Tag;
+                    carteDecouverte = true;
+                }
+                
+            }
             else
             {
+                btn.Text = (String)btn.Tag;
+                carteDecouverte = false;
                 MessageBox.Show("Raté!", "Pas la bonne paire!", MessageBoxButtons.OK);
+                btn.Text = "?";
+                panel1.Controls[index_btn_depart].Text = "?";
             }
         }
 
